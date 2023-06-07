@@ -1,19 +1,27 @@
 package be.coworking.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
+@Entity
+@Data
+@NoArgsConstructor
 public class Booking {
-    private int id;
+
+   @Id
+   @GeneratedValue
+    private UUID id;
     private LocalDate date;
+
+    @ManyToOne
     private User userId;
+
+    @ManyToOne
     private Workstation workstationId;
 }
