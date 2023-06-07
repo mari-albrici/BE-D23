@@ -41,4 +41,9 @@ public class UsersController {
     public void deleteUser(@PathVariable UUID userId) throws Exception {
         userService.findByIdAndDelete(userId);
     }
+
+//    @PatchMapping("/{userId}")
+//    public User patchUser(@PathVariable UUID userId, @RequestBody User body) throws Exception {
+//        return userService.findByIdAndUpdate(userId, body);
+//    }
 }

@@ -1,15 +1,13 @@
 package be.coworking.entities;
 
 import be.coworking.entities.enums.Type;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
 
 @Entity
+@Table(name = "workstations")
 @Data
 @NoArgsConstructor
 public class Workstation {
@@ -21,8 +19,9 @@ public class Workstation {
     private String description;
     private Type type;
     private int seats;
-
     @ManyToOne
     private Building building;
 
+    public Workstation(String description, Type type, int seats, Building building) {
+    }
 }
