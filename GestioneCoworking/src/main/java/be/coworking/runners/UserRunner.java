@@ -10,12 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.Locale;
 @Component
 public class UserRunner implements CommandLineRunner {
-    private UserService userService;
 
     @Autowired
-    public UserRunner(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
     @Override
     public void run(String... args){
 
@@ -23,12 +20,12 @@ public class UserRunner implements CommandLineRunner {
 
         for (int i = 0; i < 3; i++)
             try {
-                String name = faker.name().firstName();
-                String lastname = faker.name().lastName();
-                String email = faker.internet().emailAddress();
-                String username = faker.name().username();
-                User user = new User(name, lastname, email, username);
-                userService.create(user);
+                User user = new User();
+                user.setName(faker.name().firstName());
+                user.setLastname(faker.name().lastName());
+                user.setEmail(faker.internet().emailAddress());
+                user.setUsername(faker.name().username());
+//                userService.create(user);
             } catch (Exception e) {
                 System.out.println(e);
             }

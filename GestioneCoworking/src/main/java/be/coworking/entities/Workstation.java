@@ -17,6 +17,8 @@ public class Workstation {
     private UUID id;
 
     private String description;
+
+    @Enumerated(EnumType.STRING)
     private Type type;
     private int seats;
     @ManyToOne

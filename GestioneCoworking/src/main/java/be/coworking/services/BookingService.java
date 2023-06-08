@@ -2,6 +2,7 @@ package be.coworking.services;
 
 import be.coworking.entities.*;
 import be.coworking.entities.enums.Type;
+import be.coworking.exceptions.BadRequest;
 import be.coworking.exceptions.NotFound;
 import be.coworking.repositories.BookingRepository;
 import lombok.Data;
@@ -13,7 +14,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+
+import static org.springframework.data.repository.util.ClassUtils.ifPresent;
 
 @Service
 public class BookingService {
@@ -21,7 +25,11 @@ public class BookingService {
     @Autowired
     private BookingRepository bookingRepo;
 
-    public Booking create(Booking b){
+    public Booking create(Booking b) {
+        Optional<Booking> existingBooking = Optional.ofNullable(bookingRepo.findByWorkstationAndDate(b.getWorkstationId(), b.getDate()));
+        if (existingBooking.isPresent()) {
+            throw new BadRequest("Workstation " + b.getWorkstationId() + " already in use!");
+        }
         return bookingRepo.save(b);
     }
 

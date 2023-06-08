@@ -24,8 +24,19 @@ public class WorkstationRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args){
-//        Workstation workOne = new Workstation("Single desk space", Type.PRIVATE, 1, buildingService.findById(UUID.fromString("1")));
+        Workstation workOne = new Workstation();
+        workOne.setDescription("Single desk space");
+        workOne.setType(Type.PRIVATE);
+        workOne.setSeats(1);
+        workOne.setBuilding(buildingService.findById(52));
 //        workService.create(workOne);
+
+        Workstation workTwo = new Workstation();
+        workTwo.setDescription("Open space with singular desks available");
+        workTwo.setType(Type.OPENSPACE);
+        workTwo.setSeats(15);
+        workTwo.setBuilding(buildingService.findById(2));
+        workService.create(workTwo);
     }
 
 }

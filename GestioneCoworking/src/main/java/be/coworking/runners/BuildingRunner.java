@@ -24,6 +24,12 @@ public class BuildingRunner implements CommandLineRunner {
        buildingOne.setName("Building A");
        buildingOne.setAddress("5th Avenue");
        buildingOne.setCity(cityService.findById(UUID.fromString("3b50ebd8-e70d-41b6-aa23-cc85d060c91a")));
-       buildingService.create(buildingOne);
+//       buildingService.create(buildingOne);
+
+       Building buildingTwo = new Building();
+       buildingTwo.setName("Building B");
+       buildingTwo.setAddress("Ocean Boulevard");
+       buildingTwo.setCity(cityService.findById(UUID.fromString("3b50ebd8-e70d-41b6-aa23-cc85d060c91a")));
+       buildingService.create(buildingTwo);
     }
 }

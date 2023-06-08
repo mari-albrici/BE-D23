@@ -22,4 +22,5 @@ public class Booking {
 
     @ManyToOne
     private Workstation workstationId;
+
 }
