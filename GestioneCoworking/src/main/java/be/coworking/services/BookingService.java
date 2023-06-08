@@ -57,4 +57,8 @@ public class BookingService {
         Booking foundB = this.findById(id);
         bookingRepo.delete(foundB);
     }
+
+    public List<Booking> findByEmail(String email){
+        return bookingRepo.findByEmail(email);
+    }
 }

@@ -1,5 +1,6 @@
 package be.coworking.controllers;
 
+import be.coworking.auth.JWTTools;
 import be.coworking.entities.Booking;
 import be.coworking.entities.User;
 import be.coworking.exceptions.Unauthorized;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import static be.coworking.auth.JWTTools.extractSubject;
 
 @RestController
 @RequestMapping("/bookings")
@@ -35,15 +38,19 @@ public class BookingController {
         }
     }
 
-    @GetMapping("")
-    public List<Booking> getBooking(@RequestParam(defaultValue = "0") int page){
+    @GetMapping("/bookings")
+    public List<Booking> getBookings(@RequestHeader("Authorization") String token, @RequestParam(defaultValue = "0") int page) {
+        List<Booking> bookings = null;
         try {
-
-            return bookingService.find(page);
-        } catch (Unauthorized e){
+            String extractedEmail = extractSubject(token);
+            if (!bookingService.findByEmail(extractedEmail).isEmpty()) {
+                bookings = bookingService.find(page);
+                return bookings;
+            }
+        } catch (Unauthorized e) {
             e.printStackTrace();
         }
-        return null;
+        return bookings;
     }
 
     @PostMapping("")
