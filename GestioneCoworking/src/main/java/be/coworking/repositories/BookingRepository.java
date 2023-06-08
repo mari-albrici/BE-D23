@@ -11,5 +11,5 @@ import java.util.UUID;
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
-    Booking findByWorkstationAndDate(Workstation workstationId, LocalDate date);
+    Booking findByWorkstationIdAndDate(Workstation workstationId, LocalDate date);
 }

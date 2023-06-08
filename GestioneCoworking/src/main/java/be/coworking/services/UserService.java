@@ -1,6 +1,8 @@
 package be.coworking.services;
 
 import be.coworking.entities.User;
+import be.coworking.entities.payloads.UserRegistration;
+import be.coworking.exceptions.BadRequest;
 import be.coworking.exceptions.NotFound;
 import be.coworking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,8 +18,12 @@ public class UserService {
     @Autowired
     private UserRepository userRepo;
 
-    public User create(User u){
-        return userRepo.save(u);
+    public User create(UserRegistration u){
+        userRepo.findByEmail(u.getEmail()).ifPresent(user -> {
+            throw new BadRequest("Email " + user.getEmail() + " already in use!");
+        });
+        User newUser = new User(u.getName(), u.getLastname(), u.getEmail(), u.getPassword(), u.getRole());
+        return userRepo.save(newUser);
     }
 
     public List<User> find(int page){
@@ -44,5 +49,13 @@ public class UserService {
     public void findByIdAndDelete(UUID id) throws NotFound{
         User found = this.findById(id);
         userRepo.delete(found);
+    }
+
+    public User findByEmail(String email) throws NotFound {
+        return userRepo.findByEmail(email).orElseThrow(() -> new NotFound("Email not found"));
+    }
+
+    public User create(User user) {
+        return userRepo.save(user);
     }
 }

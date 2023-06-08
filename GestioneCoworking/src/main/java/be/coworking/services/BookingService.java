@@ -26,7 +26,7 @@ public class BookingService {
     private BookingRepository bookingRepo;
 
     public Booking create(Booking b) {
-        Optional<Booking> existingBooking = Optional.ofNullable(bookingRepo.findByWorkstationAndDate(b.getWorkstationId(), b.getDate()));
+        Optional<Booking> existingBooking = Optional.ofNullable(bookingRepo.findByWorkstationIdAndDate(b.getWorkstationId(), b.getDate()));
         if (existingBooking.isPresent()) {
             throw new BadRequest("Workstation " + b.getWorkstationId() + " already in use!");
         }

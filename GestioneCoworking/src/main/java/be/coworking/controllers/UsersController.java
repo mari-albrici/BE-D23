@@ -1,6 +1,7 @@
 package be.coworking.controllers;
 
 import be.coworking.entities.User;
+import be.coworking.entities.payloads.UserRegistration;
 import be.coworking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class UsersController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    public User saveUser(@RequestBody User body) {
+    public User saveUser(@RequestBody UserRegistration body) {
         return userService.create(body);
     }
 

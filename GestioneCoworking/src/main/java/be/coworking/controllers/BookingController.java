@@ -2,8 +2,10 @@ package be.coworking.controllers;
 
 import be.coworking.entities.Booking;
 import be.coworking.entities.User;
+import be.coworking.exceptions.Unauthorized;
 import be.coworking.exceptions.UnknownLanguage;
 import be.coworking.services.BookingService;
+import be.coworking.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,9 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/{lang}")
     public String home(@PathVariable String lang) {
         if(Objects.equals(lang, "en")){
@@ -32,7 +37,13 @@ public class BookingController {
 
     @GetMapping("")
     public List<Booking> getBooking(@RequestParam(defaultValue = "0") int page){
-        return bookingService.find(page);
+        try {
+
+            return bookingService.find(page);
+        } catch (Unauthorized e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @PostMapping("")

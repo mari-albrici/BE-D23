@@ -13,8 +13,8 @@ public class CityRunner implements CommandLineRunner {
     private CityService cityService;
 
     public void run(String... args){
-        City cityOne = new City();
-        cityOne.setName("cityOne");
+//        City cityOne = new City();
+//        cityOne.setName("cityOne");
 //        cityService.create(cityOne);
     }
 
