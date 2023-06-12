@@ -13,6 +13,7 @@ public class BuildingService {
     private BuildingRepository buildingRepo;
 
     public Building create(Building b){
+
         return buildingRepo.save(b);
     }
 

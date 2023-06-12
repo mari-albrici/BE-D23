@@ -19,8 +19,15 @@ public class Booking {
 
     @ManyToOne
     private User userId;
+    private String email;
 
     @ManyToOne
     private Workstation workstationId;
 
+    public Booking(LocalDate date, User userId, String email, Workstation workstationId) {
+        this.date = date;
+        this.userId = userId;
+        this.email = userId.getEmail();
+        this.workstationId = workstationId;
+    }
 }

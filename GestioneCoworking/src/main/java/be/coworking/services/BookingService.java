@@ -59,6 +59,7 @@ public class BookingService {
     }
 
     public List<Booking> findByEmail(String email){
+
         return bookingRepo.findByEmail(email);
     }
 }
